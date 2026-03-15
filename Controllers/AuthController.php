@@ -4,7 +4,7 @@ require_once 'Models/AuthModel.php';
 
 class AuthController {
     private $model;
-    private $recaptchaSecret = '6LcUafsrAAAAAL2xMNSvimYvzrMlC3YFSgUJGQPx';
+    private $recaptchaSecret ='6LcUafsrAAAAAL2xMNSvimYvzrMlC3YFSgUJGQPx';
 
     public function __construct() {
         if (session_status() === PHP_SESSION_NONE) session_start();
