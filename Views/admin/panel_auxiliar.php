@@ -60,14 +60,14 @@ include 'Views/layouts/header.php';
 
     <?php if(isset($_SESSION['alerta'])): ?>
         <div class="alert alert-<?php echo $_SESSION['alerta']['tipo']; ?>">
-            <strong><?php echo ($_SESSION['alerta']['tipo'] == 'success') ? '✅ Éxito:' : '❌ Error:'; ?></strong>
+            <strong><?php echo ($_SESSION['alerta']['tipo'] == 'success') ? 'Éxito:' : 'Error:'; ?></strong>
             <?php echo $_SESSION['alerta']['msg']; unset($_SESSION['alerta']); ?>
         </div>
     <?php endif; ?>
 
     <div class="form-card">
         <div class="form-card-header">
-            <h2>📝 Nueva Devolución</h2>
+            <h2>Nueva Devolución</h2>
         </div>
         
         <form action="index.php?url=panel/registrar" method="POST" enctype="multipart/form-data" id="formDevolucion">
@@ -184,9 +184,9 @@ include 'Views/layouts/header.php';
                         </label>
                         <select id="motivo" name="motivo" class="form-control" required>
                             <option value="">-- Seleccione un motivo --</option>
-                            <option value="devolucion">🔄 Devolución</option>
-                            <option value="faltante">❌ Faltante</option>
-                            <option value="sobrante">➕ Sobrante</option>
+                            <option value="devolucion">Devolución</option>
+                            <option value="faltante">Faltante</option>
+                            <option value="sobrante">Sobrante</option>
                         </select>
                     </div>
 
@@ -248,7 +248,7 @@ include 'Views/layouts/header.php';
 $(document).ready(function() {
     // Inicializar Select2
     $('.select2-producto').select2({
-        placeholder: '🔍 Busque o seleccione un producto...',
+        placeholder: 'Busque o seleccione un producto...',
         allowClear: true,
         language: {
             noResults: function() { return "No se encontraron productos"; },
@@ -308,14 +308,14 @@ document.getElementById('formDevolucion').addEventListener('submit', function(e)
 
     if (!producto || !motivo || !cantidad || cantidad <= 0) {
         e.preventDefault();
-        alert('⚠️ Por favor complete todos los campos obligatorios correctamente');
+        alert('Por favor complete todos los campos obligatorios correctamente');
         return false;
     }
 
     // Validar formato de correo si fue ingresado
     if (correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
         e.preventDefault();
-        alert('⚠️ El formato del correo electrónico no es válido');
+        alert('El formato del correo electrónico no es válido');
         return false;
     }
 });
