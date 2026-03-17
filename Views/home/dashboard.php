@@ -4,7 +4,7 @@ include 'Views/layouts/header.php';
 ?>
 
 <div class="dashboard-header">
-    <h1 class="dashboard-title">📊 Dashboard - DevolutionSync</h1>
+    <h1 class="dashboard-title">Dashboard - DevolutionSync</h1>
     
     <!-- Selector de fecha -->
     <div class="date-selector">
@@ -23,7 +23,7 @@ include 'Views/layouts/header.php';
     </div>
 
     <div class="current-date">
-        <strong>📅 Mostrando datos para:</strong>
+        <strong>Mostrando datos para:</strong>
         <?php if ($fechaFiltro == date('Y-m-d')): ?>
             <strong>HOY — <?php echo date('d/m/Y'); ?></strong>
         <?php else: ?>
@@ -37,7 +37,7 @@ include 'Views/layouts/header.php';
 
     <div class="indicator-card border-blue">
         <div class="date-badge">FECHA SELECCIONADA</div>
-        <div class="indicator-icon">📦</div>
+        <div class="indicator-icon"></div>
         <div class="indicator-value"><?php echo $statsHoy['total'] ?? 0; ?></div>
         <div class="indicator-label">Total Devoluciones</div>
         <?php if ($fechaFiltro == date('Y-m-d')): ?>
@@ -48,35 +48,35 @@ include 'Views/layouts/header.php';
     </div>
 
     <div class="indicator-card border-teal">
-        <div class="indicator-icon">🔄</div>
+        <div class="indicator-icon"></div>
         <div class="indicator-value"><?php echo $statsHoy['motivo_dev'] ?? 0; ?></div>
         <div class="indicator-label">Devoluciones</div>
         <div class="indicator-trend trend-neutral">Motivo: Devolución</div>
     </div>
 
     <div class="indicator-card border-red">
-        <div class="indicator-icon">❌</div>
+        <div class="indicator-icon"></div>
         <div class="indicator-value"><?php echo $statsHoy['motivo_fal'] ?? 0; ?></div>
         <div class="indicator-label">Faltantes</div>
         <div class="indicator-trend trend-negative">Motivo: Faltante</div>
     </div>
 
     <div class="indicator-card border-purple">
-        <div class="indicator-icon">➕</div>
+        <div class="indicator-icon"></div>
         <div class="indicator-value"><?php echo $statsHoy['motivo_sob'] ?? 0; ?></div>
         <div class="indicator-label">Sobrantes</div>
         <div class="indicator-trend trend-positive">Motivo: Sobrante</div>
     </div>
 
     <div class="indicator-card border-green">
-        <div class="indicator-icon">⚖️</div>
+        <div class="indicator-icon"></div>
         <div class="indicator-value"><?php echo number_format($statsHoy['total_kg'] ?? 0, 2); ?></div>
         <div class="indicator-label">Total KG</div>
         <div class="indicator-trend trend-neutral">Peso total</div>
     </div>
 
     <div class="indicator-card border-orange">
-        <div class="indicator-icon">🔢</div>
+        <div class="indicator-icon"></div>
         <div class="indicator-value"><?php echo number_format($statsHoy['total_und'] ?? 0, 0); ?></div>
         <div class="indicator-label">Total UND</div>
         <div class="indicator-trend trend-neutral">Unidades totales</div>
@@ -86,19 +86,19 @@ include 'Views/layouts/header.php';
 
 <!-- ── Estado de devoluciones del día ── -->
 <div class="general-stats">
-    <h3>📋 Estado de Devoluciones — <?php echo date('d/m/Y', strtotime($fechaFiltro)); ?></h3>
+    <h3>Estado de Devoluciones — <?php echo date('d/m/Y', strtotime($fechaFiltro)); ?></h3>
     <div class="stats-grid">
         <div class="stat-item">
             <div class="stat-value"><?php echo $statsHoy['pendientes'] ?? 0; ?></div>
-            <div class="stat-label">⏳ Pendientes</div>
+            <div class="stat-label"> Pendientes</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo $statsHoy['aprobados'] ?? 0; ?></div>
-            <div class="stat-label">✅ Aprobadas</div>
+            <div class="stat-label">Aprobadas</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo $statsHoy['rechazados'] ?? 0; ?></div>
-            <div class="stat-label">❌ Rechazadas</div>
+            <div class="stat-label">Rechazadas</div>
         </div>
         <div class="stat-item">
             <div class="stat-value">
@@ -109,42 +109,42 @@ include 'Views/layouts/header.php';
                 echo $porcentaje . '%';
                 ?>
             </div>
-            <div class="stat-label">📊 Revisadas</div>
+            <div class="stat-label">Revisadas</div>
         </div>
     </div>
 </div>
 
 <!-- ── Resumen general (todas las fechas) ── -->
 <div class="general-stats">
-    <h3>🌐 Resumen General (Todas las Fechas)</h3>
+    <h3>Resumen General (Todas las Fechas)</h3>
     <div class="stats-grid">
         <div class="stat-item">
             <div class="stat-value"><?php echo $statsGeneral['total'] ?? 0; ?></div>
-            <div class="stat-label">📦 Total Devoluciones</div>
+            <div class="stat-label">Total Devoluciones</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo $statsGeneral['aprobados'] ?? 0; ?></div>
-            <div class="stat-label">✅ Total Aprobadas</div>
+            <div class="stat-label">Total Aprobadas</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo $statsGeneral['rechazados'] ?? 0; ?></div>
-            <div class="stat-label">❌ Total Rechazadas</div>
+            <div class="stat-label">Total Rechazadas</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo $statsGeneral['pendientes'] ?? 0; ?></div>
-            <div class="stat-label">⏳ Total Pendientes</div>
+            <div class="stat-label">Total Pendientes</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo number_format($statsGeneral['total_kg'] ?? 0, 2); ?></div>
-            <div class="stat-label">⚖️ Total KG General</div>
+            <div class="stat-label">Total KG General</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo number_format($statsGeneral['total_und'] ?? 0, 0); ?></div>
-            <div class="stat-label">🔢 Total UND General</div>
+            <div class="stat-label">Total UND General</div>
         </div>
         <div class="stat-item">
             <div class="stat-value"><?php echo count($fechas); ?></div>
-            <div class="stat-label">📅 Días con Actividad</div>
+            <div class="stat-label">Días con Actividad</div>
         </div>
     </div>
 </div>
