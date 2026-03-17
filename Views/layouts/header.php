@@ -34,7 +34,7 @@
 
         <!-- Dashboard (solo Admin - Grado 1) -->
         <?php if (isset($_SESSION['grado']) && $_SESSION['grado'] == 1): ?>
-        <a href="#" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'home/index') !== false) ? 'active' : ''; ?>">
+        <a href="index.php?url=home/index" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'home/index') !== false) ? 'active' : ''; ?>">
             <div class="menu-icon"><i class="fas fa-chart-line"></i></div>
             <div class="menu-text">
                 <strong>DASHBOARD</strong><br>Principal
