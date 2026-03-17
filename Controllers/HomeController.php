@@ -35,6 +35,6 @@ class HomeController {
         $titulo = "Dashboard General - DevolutionSync";
         
         // Cargamos la vista con el nombre estándar de MVC
-        require_once 'Views/home/dashboard.php';
+        require_once 'Views/admin/panel_auxiliar.php';
     }
 }
