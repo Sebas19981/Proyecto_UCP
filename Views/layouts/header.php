@@ -27,7 +27,7 @@
 
     <!-- Logo -->
     <div class="logo-sidebar">
-        <img src="assets/img/logo.png" alt="DevolutionSync Logo">
+        <img src="assets/img/DevolutionSync.png" alt="DevolutionSync Logo">
     </div>
 
     <div class="sidebar-menu">
