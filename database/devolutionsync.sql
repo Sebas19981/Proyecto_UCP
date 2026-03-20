@@ -1,17 +1,4 @@
-/*
-Navicat MySQL Data Transfer
 
-Source Server         : Server 40
-Source Server Version : 50736
-Source Host           : 192.200.100.40:3306
-Source Database       : devolutionsync
-
-Target Server Type    : MYSQL
-Target Server Version : 50736
-File Encoding         : 65001
-
-Date: 2026-03-10 17:54:43
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
