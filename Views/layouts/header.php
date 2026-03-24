@@ -54,7 +54,7 @@
 
         <!-- Panel Administrador (solo Admin - Grado 1) -->
         <?php if (isset($_SESSION['grado']) && $_SESSION['grado'] == 1): ?>
-        <a href="#" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'admin/index') !== false) ? 'active' : ''; ?>">
+        <a href="index.php?url=admin/index" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'admin/index') !== false) ? 'active' : ''; ?>">
             <div class="menu-icon"><i class="fas fa-tasks"></i></div>
             <div class="menu-text">
                 <strong>PANEL</strong><br>ADMINISTRADOR
