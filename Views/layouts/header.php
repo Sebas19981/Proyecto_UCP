@@ -63,7 +63,7 @@
         <?php endif; ?>
 
         <!-- Consultar Historial (todos los usuarios) -->
-        <a href="#" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'consulta/') !== false) ? 'active' : ''; ?>">
+        <a href="index.php?url=consulta/index" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'consulta/') !== false) ? 'active' : ''; ?>">
             <div class="menu-icon"><i class="fas fa-history"></i></div>
             <div class="menu-text">
                 <strong>CONSULTAR</strong><br>HISTORIAL
@@ -72,7 +72,7 @@
 
         <!-- Crear Usuario (solo Admin - Grado 1) -->
         <?php if (isset($_SESSION['grado']) && $_SESSION['grado'] == 1): ?>
-        <a href="#" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'usuario/crear') !== false) ? 'active' : ''; ?>">
+        <a href="index.php?url=usuario/crear" class="menu-button <?php echo (strpos($_SERVER['QUERY_STRING'] ?? '', 'usuario/crear') !== false) ? 'active' : ''; ?>">
             <div class="menu-icon"><i class="fas fa-user-plus"></i></div>
             <div class="menu-text">
                 <strong>CREAR</strong><br>USUARIO
