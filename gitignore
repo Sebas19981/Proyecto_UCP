@@ -1,6 +1,9 @@
 # Ignorar node_modules completamente
 node_modules/
 
+# Ignorar uploads completamente
+uploads
+
 # Si también tienes estas carpetas (opcional)
 .DS_Store
 .vscode/
