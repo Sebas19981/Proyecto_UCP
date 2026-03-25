@@ -1,0 +1,39 @@
+flowchart TD
+    U1[Administrador] --> W[Navegador]
+    U2[Auxiliar] --> W
+
+    W --> FC[index.php\nFront Controller / Router]
+
+    FC --> AC[AuthController]
+    FC --> HC[HomeController]
+    FC --> PC[PanelController]
+    FC --> ADC[AdminController]
+    FC --> CC[ConsultaController]
+    FC --> UC[UsuarioController]
+
+    AC --> AM[AuthModel]
+    HC --> DM[DevolucionModel]
+    PC --> PM[ProductoModel]
+    PC --> DM
+    ADC --> DM
+    ADC --> CM[ConsultaModel]
+    CC --> CM
+    UC --> UM[UsuarioModel]
+
+    AM --> DB[(MySQL)]
+    PM --> DB
+    DM --> DB
+    CM --> DB
+    UM --> DB
+
+    AC --> RC[Google reCAPTCHA API]
+    PC --> EH[EmailHelper / PHPMailer]
+    ADC --> EH
+    EH --> SMTP[SMTP Gmail]
+
+    HC --> V1[Views/home/*]
+    PC --> V2[Views/admin/panel_auxiliar.php]
+    ADC --> V3[Views/admin/panel_administrador.php]
+    CC --> V4[Views/admin/consulta.php]
+    AC --> V5[Views/auth/login.php]
+    UC --> V6[Views/admin/crearUsuario.php]
