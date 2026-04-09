@@ -6,7 +6,6 @@ class UsuarioController {
     private $model;
 
     public function __construct() {
-        // Aquí  podrías incluir la lógica de session_timeout.php
         if (session_status() === PHP_SESSION_NONE) session_start();
         
         if (!isset($_SESSION['logged_in']) || $_SESSION['grado'] != 1) {
@@ -29,6 +28,10 @@ class UsuarioController {
             if (empty($usr) || empty($pas) || empty($nombre) || empty($grado)) {
                 $mensaje = 'Todos los campos son obligatorios';
                 $tipoMensaje = 'error';
+            } elseif (strlen($usr) > 10) {
+                // Validar longitud máxima VARCHAR(10) - PK de la tabla usuarios
+                $mensaje = 'El código de usuario no puede exceder 10 caracteres';
+                $tipoMensaje = 'error';
             } elseif ($this->model->existeUsuario($usr)) {
                 $mensaje = 'El usuario ya existe en el sistema';
                 $tipoMensaje = 'error';
@@ -41,7 +44,6 @@ class UsuarioController {
         }
 
         $usuarios = $this->model->listarTodos();
-        // Cargamos la vista pasándole los datos
         require_once 'Views/admin/crearUsuario.php';
     }
 }
