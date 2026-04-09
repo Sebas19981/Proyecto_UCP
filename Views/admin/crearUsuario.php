@@ -49,10 +49,10 @@ include 'Views/layouts/header.php';
                                name="usr" 
                                class="form-control" 
                                placeholder="Ej: JPEREZ"
-                               maxlength="20"
+                               maxlength="10"
                                required
                                style="text-transform:uppercase;">
-                        <small style="color:#6c757d; font-size:12px; margin-top:4px; display:block;">Se guardará en mayúsculas automáticamente</small>
+                        <small style="color:#6c757d; font-size:12px; margin-top:4px; display:block;">Máximo 10 caracteres. Se guardará en mayúsculas automáticamente</small>
                     </div>
 
                     <div class="form-group" style="margin-bottom:20px;">
