@@ -8,9 +8,26 @@ class DevolucionModel {
         $this->db = Conexion::Conectar();
     }
 
+    public function getDb() {
+        return $this->db;
+    }
+
+    // =========================================================
+    // 1.1 CONSULTA INDIVIDUAL
+    // =========================================================
+    public function obtenerPorId($id) {
+        $stmt = $this->db->prepare("
+            SELECT d.*, p.descripcion as producto_desc, p.pesoProm as producto_peso
+            FROM devoluciones d
+            LEFT JOIN producto p ON d.codigo_producto = p.`Item`
+            WHERE d.id = ?
+        ");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // =========================================================
     // 1. ZONA AUXILIAR - Guardar devolución
-    //    Retorna el ID insertado (o false si falla)
     // =========================================================
     public function guardar($datos) {
         $sql = "INSERT INTO devoluciones (
@@ -77,6 +94,22 @@ class DevolucionModel {
             error_log("Error en procesarRevision: " . $e->getMessage());
             return false;
         }
+    }
+
+    // =========================================================
+    // 2.1 HISTORIAL
+    // =========================================================
+    public function obtenerHistorial($limite = 50) {
+        $stmt = $this->db->prepare("
+            SELECT d.*, p.descripcion as producto_desc
+            FROM devoluciones d
+            LEFT JOIN producto p ON d.codigo_producto = p.`Item`
+            WHERE d.estado != 'Pendiente'
+            ORDER BY d.fecha_revision DESC
+            LIMIT ?
+        ");
+        $stmt->execute([$limite]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // =========================================================
