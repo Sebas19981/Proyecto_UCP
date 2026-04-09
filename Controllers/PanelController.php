@@ -35,6 +35,12 @@ class PanelController {
 
     public function registrar() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Validar token CSRF
+            if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+                http_response_code(403);
+                die('Token CSRF inválido');
+            }
+
             try {
                 $itemProducto = $_POST['producto'] ?? '';
 
@@ -42,9 +48,15 @@ class PanelController {
                     throw new Exception('Debe seleccionar un producto');
                 }
 
+                // Validar que el código del producto sea un número entero válido
+                // (codigo_producto ahora es INT(11) con FK a producto.Item)
+                if (!is_numeric($itemProducto) || intval($itemProducto) <= 0) {
+                    throw new Exception('El código del producto no es válido');
+                }
+
                 $producto = $this->prodModel->obtenerPorItem($itemProducto);
                 if (!$producto) {
-                    throw new Exception('Producto no encontrado');
+                    throw new Exception('Producto no encontrado en el catálogo');
                 }
 
                 $this->validarCampos($_POST);
@@ -66,10 +78,10 @@ class PanelController {
                     'nombre_cliente'       => $this->limpiar($_POST['nombre_cliente']),
                     'direccion'            => $this->limpiar($_POST['direccion']),
                     'correo_solicitante'   => $correoSolicitante,
-                    'item_producto'        => $producto['item'],
-                    'descripcion_producto' => $producto['descripcion'],
-                    'unidad'               => $producto['unidad'] ?? 'UND',
-                    'kg'                   => $producto['kg'] ?? 0,
+                    'item_producto'        => intval($producto['item']),
+					'descripcion_producto' => $producto['descripcion'],
+					'unidad'               => 'UND',
+					'kg'                   => floatval($producto['kg']),
                     'motivo'               => $this->limpiar($_POST['motivo']),
                     'cantidad_und'         => floatval($_POST['cantidad_und']),
                     'cantidad_kg'          => floatval($_POST['cantidad_kg']),
