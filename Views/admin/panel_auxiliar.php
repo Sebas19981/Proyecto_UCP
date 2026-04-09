@@ -1,12 +1,18 @@
 <?php 
-$titulo = "Registro de Devolución - DevolutionSync";
+// Generar token CSRF si no existe
+if (session_status() === PHP_SESSION_NONE) session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+ $csrf_token = $_SESSION['csrf_token'];
+
+ $titulo = "Registro de Devolución - DevolutionSync";
 include 'Views/layouts/header.php'; 
 ?>
 
 <!-- Select2 CSS -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style>
-    /* Adaptar Select2 al estilo del proyecto */
     .select2-container--default .select2-selection--single {
         height: 46px;
         border: 2px solid #e9ecef;
@@ -60,17 +66,20 @@ include 'Views/layouts/header.php';
 
     <?php if(isset($_SESSION['alerta'])): ?>
         <div class="alert alert-<?php echo $_SESSION['alerta']['tipo']; ?>">
-            <strong><?php echo ($_SESSION['alerta']['tipo'] == 'success') ? 'Éxito:' : 'Error:'; ?></strong>
+            <strong><?php echo ($_SESSION['alerta']['tipo'] == 'success') ? '✅ Éxito:' : '❌ Error:'; ?></strong>
             <?php echo $_SESSION['alerta']['msg']; unset($_SESSION['alerta']); ?>
         </div>
     <?php endif; ?>
 
     <div class="form-card">
         <div class="form-card-header">
-            <h2>Nueva Devolución</h2>
+            <h2>📝 Nueva Devolución</h2>
         </div>
         
         <form action="index.php?url=panel/registrar" method="POST" enctype="multipart/form-data" id="formDevolucion">
+            
+            <!-- TOKEN CSRF -->
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
             
             <!-- Sección: Información del Cliente -->
             <div class="form-section">
@@ -102,7 +111,6 @@ include 'Views/layouts/header.php';
                                placeholder="Dirección completa de entrega" required>
                     </div>
 
-                    <!-- Campo Correo -->
                     <div class="form-group full-width">
                         <label for="correo_solicitante">
                             <i class="fas fa-envelope"></i> Correo Electrónico
@@ -128,11 +136,10 @@ include 'Views/layouts/header.php';
                         <label for="producto">
                             <i class="fas fa-barcode"></i> Producto *
                         </label>
-                        <!-- Select2 reemplaza al select normal -->
                         <select id="producto" name="producto" class="form-control select2-producto" required>
                             <option value="">-- Busque o seleccione un producto --</option>
                             <?php foreach($productos as $p): ?>
-                                <option value="<?php echo htmlspecialchars($p['item']); ?>" 
+                                <option value="<?php echo intval($p['item']); ?>" 
                                         data-descripcion="<?php echo htmlspecialchars($p['descripcion']); ?>"
                                         data-unidad="<?php echo htmlspecialchars($p['unidad'] ?? 'UND'); ?>"
                                         data-kg="<?php echo htmlspecialchars($p['kg'] ?? '0'); ?>">
@@ -184,9 +191,9 @@ include 'Views/layouts/header.php';
                         </label>
                         <select id="motivo" name="motivo" class="form-control" required>
                             <option value="">-- Seleccione un motivo --</option>
-                            <option value="devolucion">Devolución</option>
-                            <option value="faltante">Faltante</option>
-                            <option value="sobrante">Sobrante</option>
+                            <option value="devolucion">🔄 Devolución</option>
+                            <option value="faltante">❌ Faltante</option>
+                            <option value="sobrante">➕ Sobrante</option>
                         </select>
                     </div>
 
@@ -240,23 +247,19 @@ include 'Views/layouts/header.php';
     </div>
 </div>
 
-<!-- jQuery + Select2 JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    // Inicializar Select2
+ $(document).ready(function() {
     $('.select2-producto').select2({
-        placeholder: 'Busque o seleccione un producto...',
+        placeholder: '🔍 Busque o seleccione un producto...',
         allowClear: true,
         language: {
             noResults: function() { return "No se encontraron productos"; },
             searching: function() { return "Buscando..."; }
         }
     });
-
-    // Evento de cambio en Select2
     $('.select2-producto').on('change', function() {
         cargarInfoProducto();
     });
@@ -265,7 +268,6 @@ $(document).ready(function() {
 function cargarInfoProducto() {
     const select = document.getElementById('producto');
     const option = select.options[select.selectedIndex];
-
     if (option && option.value) {
         document.getElementById('item_producto').value      = option.value;
         document.getElementById('descripcion_producto').value = option.dataset.descripcion || '';
@@ -288,7 +290,6 @@ function calcularKgTotal() {
 }
 
 function limpiarSelect2() {
-    // Limpiar Select2 al resetear el formulario
     setTimeout(() => {
         $('.select2-producto').val(null).trigger('change');
         document.getElementById('item_producto').value      = '';
@@ -299,23 +300,19 @@ function limpiarSelect2() {
     }, 10);
 }
 
-// Validar antes de enviar
 document.getElementById('formDevolucion').addEventListener('submit', function(e) {
     const producto    = document.getElementById('producto').value;
     const motivo      = document.getElementById('motivo').value;
     const cantidad    = document.getElementById('cantidad_und').value;
     const correo      = document.getElementById('correo_solicitante').value;
-
     if (!producto || !motivo || !cantidad || cantidad <= 0) {
         e.preventDefault();
-        alert('Por favor complete todos los campos obligatorios correctamente');
+        alert('⚠️ Por favor complete todos los campos obligatorios correctamente');
         return false;
     }
-
-    // Validar formato de correo si fue ingresado
     if (correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
         e.preventDefault();
-        alert('El formato del correo electrónico no es válido');
+        alert('⚠️ El formato del correo electrónico no es válido');
         return false;
     }
 });
