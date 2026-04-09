@@ -225,10 +225,10 @@ include 'Views/layouts/header.php';
 
                     <div class="form-group full-width">
                         <label for="evidencia">
-                            <i class="fas fa-camera"></i> Evidencia Fotográfica (Opcional)
+                            <i class="fas fa-camera"></i> Evidencia Fotográfica *
                         </label>
                         <input type="file" id="evidencia" name="evidencia" 
-                               class="form-control-file" accept="image/*">
+                               class="form-control-file" accept="image/*" required>
                         <small class="form-text">Formatos permitidos: JPG, PNG, GIF (Máx. 5MB)</small>
                     </div>
                 </div>
