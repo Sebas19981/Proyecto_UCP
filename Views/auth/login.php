@@ -231,13 +231,13 @@
         <div class="form-container sign-in">
             <form id="loginForm">
                 <h1>Iniciar Sesion</h1>
-				<br>
+                                <br>
                 <span>Ingresa tu usuario y contraseña para iniciar sesión</span>
 
                 <div id="alertMessage" class="alert"></div>
 
                 <input type="text" id="username" name="username"
-                       placeholder="Ingresa tu usuario" required autocomplete="username">
+                       placeholder="Ingresa tu usuario" maxlength="10" required autocomplete="username">
 
                 <input type="password" id="password" name="password"
                        placeholder="Ingresa tu contraseña" required autocomplete="current-password">
@@ -339,6 +339,6 @@
                 showAlert('Su sesión ha expirado por inactividad.', 'warning');
             }
         });
-    </script>	
+    </script>   
 </body>
 </html>
