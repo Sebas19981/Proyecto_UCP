@@ -16,9 +16,12 @@ class UsuarioModel {
     }
 
     public function guardar($usr, $pas, $nombre, $grado) {
+        // Truncar USR a VARCHAR(10) - longitud máxima de la PK
+        $usrTruncado = substr($usr, 0, 10);
+
         $sql = "INSERT INTO usuarios (USR, PAS, NOMBRE, GRADO) VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([$usr, $pas, $nombre, $grado]);
+        return $stmt->execute([$usrTruncado, $pas, $nombre, $grado]);
     }
 
     public function listarTodos() {
