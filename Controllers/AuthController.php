@@ -116,7 +116,7 @@ class AuthController {
         switch ($grado) {
             case 1:  return 'index.php?url=home/index';
             case 2:  return 'index.php?url=panel/auxiliar';
-            case 3:  return 'index.php?url=panel/consultar';
+            case 3:  return 'index.php?url=consulta/index';
             default: return 'index.php?url=auth/index';
         }
     }
